@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CI Sentinel — CI Failure Alert &amp; Diagnosis</title>
+  <meta name="description" content="CI Failure Alert and Diagnosis tool — detects failing builds, explains the root cause and suggests fixes.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Cpath d='M5 17h5l3-9 5 16 3-7h6' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    try { var t = localStorage.getItem('theme'); if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; document.documentElement.dataset.theme = t; } catch (e) { document.documentElement.dataset.theme = 'light'; }
+  </script>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#/">
+        <span class="brand-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span>
+        <span class="brand-text"><strong>CI Sentinel</strong><small>Failure Alert &amp; Diagnosis</small></span>
+      </a>
+      <nav class="nav" id="nav" aria-label="Main">
+        <a href="#/" data-route="dashboard"><i data-icon="dashboard"></i>Dashboard</a>
+        <a href="#/builds" data-route="builds"><i data-icon="layers"></i>Builds</a>
+        <a href="#/alerts" data-route="alerts"><i data-icon="bell"></i>Alerts <span class="nav-badge" id="navAlertBadge" hidden>0</span></a>
+        <a href="#/analyzer" data-route="analyzer"><i data-icon="code"></i>Log Analyzer</a>
+        <a href="#/projects" data-route="projects"><i data-icon="folder"></i>Projects</a>
+        <a href="#/settings" data-route="settings"><i data-icon="sliders"></i>Settings &amp; Integration</a>
+        <a href="#/about" data-route="about"><i data-icon="info"></i>About the Project</a>
+      </nav>
+      <div class="sidebar-foot">
+        <div class="live"><span class="live-dot" id="liveDot"></span><span id="liveText">Connecting…</span></div>
+        <div class="group-tag">Project 82</div>
+      </div>
+    </aside>
+    <div class="scrim" id="scrim"></div>
+
+    <div class="main-col">
+      <header class="topbar">
+        <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu"><i data-icon="menu"></i></button>
+        <form class="search" id="globalSearch" role="search">
+          <i data-icon="search"></i>
+          <input id="globalSearchInput" type="search" placeholder="Search builds, branches, authors, root causes…" aria-label="Search builds">
+        </form>
+        <div class="top-actions">
+          <button class="btn btn-primary" id="simulateBtn" title="Create a simulated pipeline run"><i data-icon="zap"></i><span>Simulate build</span></button>
+          <button class="icon-btn" id="bellBtn" aria-label="Open alerts"><i data-icon="bell"></i><span class="dot-badge" id="bellBadge" hidden>0</span></button>
+          <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode"><i data-icon="moon" id="themeIcon"></i></button>
+        </div>
+      </header>
+      <main id="view" class="view" tabindex="-1"></main>
+    </div>
+  </div>
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
